@@ -10,14 +10,36 @@ pRateMax = gpuDedicated["Pixel_Rate(GPixel/s)"].max()
 pRateMin = gpuDedicated["Pixel_Rate(GPixel/s)"].min()
 pRateSkew = gpuDedicated["Pixel_Rate(GPixel/s)"].skew()
 
-def perfRating(i):
-    pRateRating = gpuDedicated["Pixel_Rate(GPixel/s)"][i]/pRateAvg*5
-    return int(pRateRating)
+needDict = {
+    "Browsing" : 1,
+    "Gaming Ringan" : 2,
+    "Gaming Berat" : 3,
+    "Mini PC" : 4,
+    "Kerja" : 5,
+    "Sekolah" : 6,
+    "Video Editing" : 7
+}
 
-# perfRating(24)
+# def perfRating(i):
+#     pRateRating = gpuDedicated["Pixel_Rate(GPixel/s)"][i]/pRateAvg*5
+#     return int(pRateRating)
+def filters(cat, x):
+    # new = gpuDedicated.drop(cat, axis=1)
+    output = gpuDedicated.copy().loc[gpuDedicated[cat]>x]
+    print(output[["Name", cat]])
 
-# print(gpuData)
-for i in range(3406):
-    if gpuData["Notebook_GPU"][i]=="No":
-        if gpuData["TMUs"][i]>256:
-            print(gpuData["Name"][i], "with", gpuData["Memory"][i], "and", gpuData["Pixel_Rate"][i])
+print(needDict)
+x = input("Masukkan Kebutuhan anda: ")
+category = "Memory(MB)"
+compParam = 1
+def gpuRec(x):
+    if x == 1:
+        filters("Memory(MB)", 1024) 
+    elif x == 2:
+        filters("Memory(MB)", 2048)
+    elif x == 3:
+        filters("Memory(MB)", 4096)
+    elif x == 4:
+        filters("Memory(MB)", 2048)
+
+# print(gpuDedicated)
