@@ -1,6 +1,6 @@
 import pandas as pd
 gpuData = pd.read_csv("gpuData.csv")
-cpuData = pd.read_csv("Intel_CPUs.csv")
+# cpuData = pd.read_csv("Intel_CPUs.csv")
 
 gpuDedicated = gpuData.copy().loc[gpuData['Integrated']=='No']
 
